@@ -1,18 +1,20 @@
+import { useEffect, useState } from 'react';
 import {Error, Loader,SongCard} from '../components';
 import {genres} from '../assets/constants';
 import { useGetArtistTracks } from '../redux/services/shazamCore';
-import { useEffect, useState } from 'react';
+
 
 const Discover = () =>{
   const [data,setData] = useState(null);
   useEffect(()=>{
     const getData = async()=>{
-      const data = await useGetArtistTracks('2w9zwq3AktTeYYMuhMjju8');
-      setData(data);
+      const tmpdata = await useGetArtistTracks('2w9zwq3AktTeYYMuhMjju8');
+      setData(JSON.parse(tmpdata));
     }
-  },[data])
+    getData();
+  },[])
     
-    console.log(JSON.parse(data));
+    console.log(data);
   // if (isFetching) return <Loader title="Loading songs..." />;
   // if (error) return <Error />;
     const genreTitle = 'Pop';
@@ -26,7 +28,7 @@ const Discover = () =>{
         </select>
     </div>
     <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-        {data?.tracks?.map((song, i) => (
+        {data?.map((song, i) => (
           <SongCard
             key={i}
             // song={song}
@@ -34,7 +36,7 @@ const Discover = () =>{
             // activeSong={activeSong}
             // data={data}
             // i={i}
-            // Title={song.name}
+            Title={song.name}
           />
         ))}
       </div>

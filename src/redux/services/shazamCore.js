@@ -4,15 +4,15 @@ import { useState,useEffect } from 'react';
 const baseURL = '	https://api.spotify.com'
 const config = {
   headers:{
-      'Authorization': 'Bearer BQCeeuAAWasSD2r10QbUjmB49_Id0pDuLmbXJ954VGIS-qmfcUEidcYUr6fVpIxWkiPS7W2rSD-moFsckglTnQgDx-kx12UIbcq6hvhz0-3vy_hKWbUrK22bu-g-_f2ugLV9mgdbc3a49XSu_sft7IJCSwa9szHcAk4CS0wpbEpB_YQo3eIa4Y3N_Cohq7NNSgkw',
+      'Authorization': 'Bearer BQA8fZO4ZPXL3SB4OPb81BERtCTPYgeO7jc-skPpYMLrvsm5F3AQo6URR7VASl-Npya31bu7r9hMvEOLKez3zFI087utz3Jhro--Ar8Nf661EJIiaKZzRZnrsoKeZXBUf8-AlHhse8hOgPwmNF8shPXPoY_WGTI7sS7Letxw3r84FKgyW2uIBI565pf56Yi8tu8Z',
   },
   responseType: 'json'
 };
 export const useGetArtistTracks = async (id)=>{
 
     let res = await axios.get(`${baseURL}/v1/artists/${id}/top-tracks?market=ES`,config );
-    console.log(res.data);
-    let stringData = JSON.stringify(res.data);
+    let stringData = JSON.stringify(res.data.tracks);
+   console.log(res.data.tracks)
     return stringData;
 
 }
