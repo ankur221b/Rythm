@@ -1,32 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import axios from "axios";
+import { useState,useEffect } from 'react';
 
-export const shazamCoreApi = createApi({
-  reducerPath: 'shazamCoreApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://shazam-core.p.rapidapi.com/',
-    prepareHeaders: (headers) => {
-      headers.set('X-RapidAPI-Key','d1638750ebmsha3b617a60c2fe02p1c600bjsn016578752711');
+const baseURL = '	https://api.spotify.com'
+const config = {
+  headers:{
+      'Authorization': 'Bearer BQCeeuAAWasSD2r10QbUjmB49_Id0pDuLmbXJ954VGIS-qmfcUEidcYUr6fVpIxWkiPS7W2rSD-moFsckglTnQgDx-kx12UIbcq6hvhz0-3vy_hKWbUrK22bu-g-_f2ugLV9mgdbc3a49XSu_sft7IJCSwa9szHcAk4CS0wpbEpB_YQo3eIa4Y3N_Cohq7NNSgkw',
+  },
+  responseType: 'json'
+};
+export const useGetArtistTracks = async (id)=>{
 
-      return headers;
-    },
-  }),
-  endpoints: (builder) => ({
-    getTopCharts: builder.query({ query: () => 'v1/charts/world' }),
-    getSongsByGenre: builder.query({ query: (genre) => `v1/charts/genre-world?genre_code=${genre}` }),
-    getSongsByCountry: builder.query({ query: (countryCode) => `v1/charts/country?country_code=${countryCode}` }),
-    getSongsBySearch: builder.query({ query: (searchTerm) => `v1/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
-    getArtistDetails: builder.query({ query: (artistId) => `v2/artists/details?artist_id=${artistId}` }),
-    getSongDetails: builder.query({ query: ({ songid }) => `v1/tracks/details?track_id=${songid}` }),
-    getSongRelated: builder.query({ query: ({ songid }) => `v1/tracks/related?track_id=${songid}` }),
-  }),
-});
+    let res = await axios.get(`${baseURL}/v1/artists/${id}/top-tracks?market=ES`,config );
+    console.log(res.data);
+    let stringData = JSON.stringify(res.data);
+    return stringData;
 
-export const {
-  useGetTopChartsQuery,
-  useGetSongsByGenreQuery,
-  useGetSongsByCountryQuery,
-  useGetSongsBySearchQuery,
-  useGetArtistDetailsQuery,
-  useGetSongDetailsQuery,
-  useGetSongRelatedQuery,
-} = shazamCoreApi;
+}

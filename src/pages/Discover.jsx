@@ -1,13 +1,20 @@
 import {Error, Loader,SongCard} from '../components';
 import {genres} from '../assets/constants';
-import { useGetSongsByGenreQuery } from '../redux/services/shazamCore';
+import { useGetArtistTracks } from '../redux/services/shazamCore';
+import { useEffect, useState } from 'react';
 
 const Discover = () =>{
-    const { data, isFetching, error } = useGetSongsByGenreQuery('POP');
-
-  if (isFetching) return <Loader title="Loading songs..." />;
-  if (error) return <Error />;
-
+  const [data,setData] = useState(null);
+  useEffect(()=>{
+    const getData = async()=>{
+      const data = await useGetArtistTracks('2w9zwq3AktTeYYMuhMjju8');
+      setData(data);
+    }
+  },[data])
+    
+    console.log(JSON.parse(data));
+  // if (isFetching) return <Loader title="Loading songs..." />;
+  // if (error) return <Error />;
     const genreTitle = 'Pop';
     return(
 <div className='flex flex-col'>
@@ -19,14 +26,15 @@ const Discover = () =>{
         </select>
     </div>
     <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-        {data?.map((song, i) => (
+        {data?.tracks?.map((song, i) => (
           <SongCard
-            key={song.key}
-            song={song}
-            isPlaying={isPlaying}
-            activeSong={activeSong}
-            data={data}
-            i={i}
+            key={i}
+            // song={song}
+            // isPlaying={isPlaying}
+            // activeSong={activeSong}
+            // data={data}
+            // i={i}
+            // Title={song.name}
           />
         ))}
       </div>
