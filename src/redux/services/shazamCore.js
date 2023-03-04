@@ -1,18 +1,25 @@
-import axios from "axios";
-import { useState,useEffect } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-const baseURL = '	https://api.spotify.com'
+const baseURL = '	https://api.spotify.com/v1';
 const config = {
-  headers:{
-      'Authorization': 'Bearer BQA8fZO4ZPXL3SB4OPb81BERtCTPYgeO7jc-skPpYMLrvsm5F3AQo6URR7VASl-Npya31bu7r9hMvEOLKez3zFI087utz3Jhro--Ar8Nf661EJIiaKZzRZnrsoKeZXBUf8-AlHhse8hOgPwmNF8shPXPoY_WGTI7sS7Letxw3r84FKgyW2uIBI565pf56Yi8tu8Z',
-  },
-  responseType: 'json'
+	headers: {
+		Authorization:
+			'Bearer BQCQ6L1Vmi2fY0_yDqt2dDMDwg3mBp2uV5BdXUs1CsArmfcjR1b13gGaKsth24l31D2T49TWChG1KbDiqoggqB0zJ5pvqC_aiurMS9e-YL4vFk_iHvIzvs8ysda6SfxPTAtpcGGgDwitkUBjRhFWDao28wXTba6QsMblw2V0Q6vKwD8UOP36lg2qZaSXYCvwxn4-',
+	},
+	responseType: 'json',
 };
-export const useGetArtistTracks = async (id)=>{
+export const useGetArtistTracks = async (id) => {
+	let res = await axios.get(
+		`${baseURL}/artists/${id}/top-tracks?market=ES`,
+		config
+	);
+	let stringData = JSON.stringify(res.data.tracks);
+	return stringData;
+};
 
-    let res = await axios.get(`${baseURL}/v1/artists/${id}/top-tracks?market=ES`,config );
-    let stringData = JSON.stringify(res.data.tracks);
-   console.log(res.data.tracks)
-    return stringData;
-
-}
+export const useGetArtists = async (id) => {
+	let res = await axios.get(`${baseURL}/artists`, config);
+	let stringData = JSON.stringify(res.data.tracks);
+	return stringData;
+};
