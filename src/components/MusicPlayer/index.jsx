@@ -28,6 +28,7 @@ const MusicPlayer = () => {
 	}, [currentIndex]);
 
 	const handlePlayPause = () => {
+		console.log(isActive);
 		if (!isActive) return;
 
 		if (isPlaying) {
