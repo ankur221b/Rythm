@@ -5,7 +5,7 @@ const baseURL = '	https://api.spotify.com/v1';
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQARpUU0ocnpu4GyHim8-q3aXiwndWPRwvtqfBOl-jR3kn0lQZDObhrwaXj2b02YfHOfvdOLr7ElVt3OoMI4vQyrJ_qN92a7Zq1n1oXJ4WHk7sybr67CJMKLSwZvXWcOdsS1OxcEfzeC-VHdXGnrrYf6PsXGSOSvnvNhwYVvb_QmQLix87fKnGk2b8RQ0H73gf1p',
+			'Bearer BQDBBF8CigJ2RYC2n6PuCxQc2HHHmMyn_npsiCecncjy4rwe8O7Ub7EHmiCH_h6s8PnHTPZrnZcoIHj8dIELVNPwwphSPkX0aXa6m85VKgBhLvPSmCFH_hJdwleDQK7K4tHPafDiXeKks2RTOyDvmrKRL8ZilJLmvSREpB4pX4ffrOXoAQJ_x2Zg68hPOI2nbcFZ',
 	},
 	responseType: 'json',
 };
