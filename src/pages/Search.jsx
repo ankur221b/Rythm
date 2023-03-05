@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
 import { Error, Loader, SongCard } from '../components';
-import { useGetSongsBySearchQuery } from '../redux/services/shazamCore';
+import { useSearchSong } from '../redux/services/shazamCore';
 
 const Search = () => {
 	const { searchTerm } = useParams();
 	const { activeSong, isPlaying } = useSelector((state) => state.player);
-	const { data, isFetching, error } = useGetSongsBySearchQuery(searchTerm);
+	const [data, setData] = useState(null);
 
-	const songs = data?.tracks?.hits.map((song) => song.track);
+	useEffect(() => {
+		const getData = async () => {
+			const tmpdata = await useSearchSong(searchTerm);
+			setData(JSON.parse(tmpdata));
+		};
+		getData();
+	}, []);
+	//const songs = data?.tracks?.hits.map((song) => song.track);
+	const songs = data;
 
-	if (isFetching) return <Loader title={`Searching ${searchTerm}...`} />;
+	// if (isFetching) return <Loader title={`Searching ${searchTerm}...`} />;
 
-	if (error) return <Error />;
+	// if (error) return <Error />;
 
 	return (
 		<div className="flex flex-col">
@@ -24,9 +31,9 @@ const Search = () => {
 			</h2>
 
 			<div className="flex flex-wrap sm:justify-start justify-center gap-8">
-				{songs.map((song, i) => (
+				{songs?.items?.map((song, i) => (
 					<SongCard
-						key={song.key}
+						key={i}
 						song={song}
 						isPlaying={isPlaying}
 						activeSong={activeSong}

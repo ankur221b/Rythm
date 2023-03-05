@@ -5,7 +5,7 @@ const baseURL = '	https://api.spotify.com/v1';
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQDNkY0yJPWcama9bvTgHJlHoyllYd3hPkR_QmEr5HxUvHlojwiqT9tilZj9_N6lOfEz_P4WlxRaVqNR370dFxXkl2Eh2JOy4oQmke1Z51eFGwKct_Mv3MptzJdd3Zrilb7u4Xe5_FS-3Aeq_fcqcbaIPPnnFubIGXOz9vUq42gL_6QY7tyvQvv2TZ7wiieZ4heC',
+			'Bearer BQDSJuj-Wy5ACLhrAW8VmVjSYKP7Sgszy1QscaauonMGkhKaZ3uq3dgRQv9A44QBL3ec20SAzac-5JxMO1sxC5l9s8UwE5anj_55VpHxaUt5i9FpvUaZ8Mcfj7Hu_q4iVHdCEIbovKumVlZ1qjkueZFCiBx44Tt3Pr63tkMfPLi3M68px0vS8bE5TRnyrPWr7Aw4',
 	},
 	responseType: 'json',
 };
@@ -35,6 +35,14 @@ export const useGetSongDetails = async (id) => {
 export const useGetArtistDetails = async (id) => {
 	let res = await axios.get(`${baseURL}/artists/${id}`, config);
 	let stringData = JSON.stringify(res.data);
-	console.log(res.data);
+	return stringData;
+};
+
+export const useSearchSong = async (searchTerm) => {
+	let res = await axios.get(
+		`${baseURL}/search?q=${searchTerm}&type=track`,
+		config
+	);
+	let stringData = JSON.stringify(res.data.tracks);
 	return stringData;
 };

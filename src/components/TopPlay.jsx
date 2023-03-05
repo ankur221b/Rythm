@@ -141,9 +141,9 @@ const TopPlay = () => {
 							style={{ width: '25%', height: 'auto' }}
 							className="shadow-lg rounded-full animate-slideright"
 						>
-							<Link to={`/artists/${artist?.artists[0].adamid}`}>
+							<Link to={`/artists/${artist?.artists[0].id}`}>
 								<img
-									src={artist?.images?.background}
+									src={artist?.images[0]?.url}
 									alt="Name"
 									className="rounded-full w-full object-cover"
 								/>
