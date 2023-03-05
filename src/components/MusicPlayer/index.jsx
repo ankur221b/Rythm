@@ -28,7 +28,6 @@ const MusicPlayer = () => {
 	}, [currentIndex]);
 
 	const handlePlayPause = () => {
-		console.log(isActive);
 		if (!isActive) return;
 
 		if (isPlaying) {
@@ -57,7 +56,7 @@ const MusicPlayer = () => {
 			dispatch(prevSong(currentIndex - 1));
 		}
 	};
-	console.log(currentSongs);
+
 	return (
 		<div className="relative sm:px-12 px-8 w-full flex items-center justify-between">
 			<Track

@@ -5,7 +5,7 @@ const baseURL = '	https://api.spotify.com/v1';
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQBSNlhIVvpYUUeqfvseOU5aUcHV242MI58crvpSZ03kpuvf-1wkrs36ShqcZ7F452AeDil6yVycF78zRwv8lpvQDEOMFaq5Kv1GqXIzwxnk1j8bPeEATb49iGJ5UGhYa_cV2OqM_U5eJ46ZW1LeBlVsJqe115E9SWaDouQV48k_AW-msFG8KeYx-3OKlLGq7ts4',
+			'Bearer BQDNkY0yJPWcama9bvTgHJlHoyllYd3hPkR_QmEr5HxUvHlojwiqT9tilZj9_N6lOfEz_P4WlxRaVqNR370dFxXkl2Eh2JOy4oQmke1Z51eFGwKct_Mv3MptzJdd3Zrilb7u4Xe5_FS-3Aeq_fcqcbaIPPnnFubIGXOz9vUq42gL_6QY7tyvQvv2TZ7wiieZ4heC',
 	},
 	responseType: 'json',
 };
@@ -23,5 +23,18 @@ export const useGetArtists = async () => {
 		'6eUKZXaKkcviH0Ku9w2n3V%2C6VuMaDnrHyPL1p4EHjYLi7%2C1vCWHaC5f2uS3yhpwWbIA6';
 	let res = await axios.get(`${baseURL}/artists?ids=${ids}`, config);
 	let stringData = JSON.stringify(res.data.artists);
+	return stringData;
+};
+
+export const useGetSongDetails = async (id) => {
+	let res = await axios.get(`${baseURL}/tracks/${id}`, config);
+	let stringData = JSON.stringify(res.data);
+	return stringData;
+};
+
+export const useGetArtistDetails = async (id) => {
+	let res = await axios.get(`${baseURL}/artists/${id}`, config);
+	let stringData = JSON.stringify(res.data);
+	console.log(res.data);
 	return stringData;
 };
