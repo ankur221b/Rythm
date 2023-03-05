@@ -4,13 +4,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
 
 import { setActiveSong, playPause } from '../redux/features/playerSlice';
-import { useGetSongDetails } from '../redux/services/shazamCore';
+import {
+	useGetSongDetails,
+	useGetArtistTopTracks,
+	useGetArtistDetails,
+} from '../redux/services/shazamCore';
 
 const SongDetails = () => {
 	const dispatch = useDispatch();
 	const { songid, id: artistId } = useParams();
 	const { activeSong, isPlaying } = useSelector((state) => state.player);
 	const [songData, setSongData] = useState(null);
+	const [topTracks, setTopTracks] = useState(null);
+	const [artistData, setArtistData] = useState(null);
 	useEffect(() => {
 		const getData = async () => {
 			const tmpdata = await useGetSongDetails(songid);
@@ -18,6 +24,21 @@ const SongDetails = () => {
 		};
 		getData();
 	}, []);
+	useEffect(() => {
+		const getData = async (id) => {
+			const tmpdata = await useGetArtistTopTracks(id);
+			setTopTracks(JSON.parse(tmpdata));
+		};
+		if (songData) getData(songData?.artists[0]?.id);
+	}, [songData]);
+
+	useEffect(() => {
+		const getData = async (id) => {
+			const tmpdata = await useGetArtistDetails(id);
+			setArtistData(JSON.parse(tmpdata));
+		};
+		if (songData) getData(songData?.artists[0]?.id);
+	}, [songData]);
 	// const { data: songData, isFetching: isFetchingSongDetails } =
 	// 	useGetSongDetailsQuery({ songid });
 
@@ -31,14 +52,15 @@ const SongDetails = () => {
 	};
 
 	const handlePlayClick = (song, i) => {
-		dispatch(setActiveSong({ song, data, i }));
+		dispatch(setActiveSong({ song, songData, i }));
 		dispatch(playPause(true));
 	};
 	return (
 		<div className="flex flex-col">
 			<DetailsHeader
-				artistId={songData?.artists[0]?.id}
+				artistId={artistId}
 				songData={songData}
+				artistData={artistData}
 			/>
 
 			<div className="mb-10">
@@ -62,14 +84,14 @@ const SongDetails = () => {
 				</div>
 			</div>
 
-			{/* <RelatedSongs
-				data={data}
+			<RelatedSongs
+				data={topTracks}
 				artistId={artistId}
 				isPlaying={isPlaying}
 				activeSong={activeSong}
 				handlePauseClick={handlePauseClick}
 				handlePlayClick={handlePlayClick}
-			/> */}
+			/>
 		</div>
 	);
 };

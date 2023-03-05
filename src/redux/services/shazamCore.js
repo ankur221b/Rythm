@@ -5,7 +5,7 @@ const baseURL = '	https://api.spotify.com/v1';
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQDSJuj-Wy5ACLhrAW8VmVjSYKP7Sgszy1QscaauonMGkhKaZ3uq3dgRQv9A44QBL3ec20SAzac-5JxMO1sxC5l9s8UwE5anj_55VpHxaUt5i9FpvUaZ8Mcfj7Hu_q4iVHdCEIbovKumVlZ1qjkueZFCiBx44Tt3Pr63tkMfPLi3M68px0vS8bE5TRnyrPWr7Aw4',
+			'Bearer BQCzjgfJGvIPceZHMB0MofN9Bwv2bAmYAJIXEdB8T5MVtygSZNBgKweQQA_BaLARHWaqwcckHq_6fMc91mn_1I5CeQS8CwbPbOsTCWAlQ2Nt-5xBYxLKAA2b9mS0lGUwb389-04yTyz8ST4ixQM-PpImtUKRKXAs9LleBu8lmia4IslPn0iXQkO_dyNEwfo25P7m',
 	},
 	responseType: 'json',
 };
@@ -41,6 +41,14 @@ export const useGetArtistDetails = async (id) => {
 export const useSearchSong = async (searchTerm) => {
 	let res = await axios.get(
 		`${baseURL}/search?q=${searchTerm}&type=track`,
+		config
+	);
+	let stringData = JSON.stringify(res.data.tracks);
+	return stringData;
+};
+export const useGetArtistTopTracks = async (id) => {
+	let res = await axios.get(
+		`${baseURL}/artists/${id}/top-tracks?market=US`,
 		config
 	);
 	let stringData = JSON.stringify(res.data.tracks);

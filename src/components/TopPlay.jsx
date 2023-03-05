@@ -135,15 +135,15 @@ const TopPlay = () => {
 					modules={[FreeMode]}
 					className="mt-4"
 				>
-					{topPlays?.slice(0, 5).map((artist, i) => (
+					{topPlays?.slice(0, 5).map((song, i) => (
 						<SwiperSlide
 							key={i}
 							style={{ width: '25%', height: 'auto' }}
 							className="shadow-lg rounded-full animate-slideright"
 						>
-							<Link to={`/artists/${artist?.artists[0].id}`}>
+							<Link to={`/artists/${song?.artists[0].id}`}>
 								<img
-									src={artist?.images[0]?.url}
+									src={song?.album?.images[0]?.url}
 									alt="Name"
 									className="rounded-full w-full object-cover"
 								/>
