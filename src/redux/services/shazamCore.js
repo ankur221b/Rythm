@@ -13,7 +13,7 @@ const lyricsConfig = {
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQCc4MxumXrEZBLooOlmAZhizxNXWxPyjOCFIpKvdUcdPZVC10Bf-8W8MpJxX3TaR_ZqN9EZkvt8smgqCcr_LeUi8Ei9OYc4gJcrAnel9X1td_MZmY_vI1WZXQ9tpvaLbcqpdNQm4Im1Odo2uxHxhn40xQbLMHVuwZlQFZnUXvAw39cae3juFcjfxcJsBFVHXt-I',
+			'Bearer BQDeOtRTFGoGyI1CXOVYiD2iIwP3X2ofrcGeMASj9SViZ6nbbAA0Bk53_yM-sv5wQPq7OfhsEjRpEbo2ReL4kipS91w8_HWL12suNlILEl_Jagt9uJ5XdFSpPzJO0pgylLrftn1l4nhVejWOhKwuOrCBY5tSy3JmLNhshnILyJZijGBoEW-nzkYgYxolPk7TbzP2',
 	},
 	responseType: 'json',
 };
