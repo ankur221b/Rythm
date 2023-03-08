@@ -40,10 +40,14 @@ const MusicPlayer = () => {
 	const handleNextSong = () => {
 		dispatch(playPause(false));
 
-		if (!shuffle) {
-			dispatch(nextSong((currentIndex + 1) % currentSongs.length));
-		} else {
-			dispatch(nextSong(Math.floor(Math.random() * currentSongs.length)));
+		if (currentSongs) {
+			if (!shuffle) {
+				dispatch(nextSong((currentIndex + 1) % currentSongs.length));
+			} else {
+				dispatch(
+					nextSong(Math.floor(Math.random() * currentSongs.length))
+				);
+			}
 		}
 	};
 

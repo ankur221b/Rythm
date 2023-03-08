@@ -1,11 +1,19 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { artists } from '../../assets/constants';
 
 const baseURL = '	https://api.spotify.com/v1';
+const lyricsURL = 'https://spotify23.p.rapidapi.com/track_lyrics';
+const lyricsConfig = {
+	headers: {
+		'X-RapidAPI-Key': 'd1638750ebmsha3b617a60c2fe02p1c600bjsn016578752711',
+		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
+	},
+};
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQAR4m5VO39_Deoe6MDV7Rr1Zo58gxYFfNZj3oVvWwS33EWutVi03fn2kM_8VPQlDdop-BU2OxKGq9-mDJTMIpYlaI1-3lT_A8Kf-fMFyHnbEPtJtG5FGzqZt1kN9fx0Zo2BOg0hp278uzppQFct7P62_GkL4ua0fUCZDbXXno_2FI08pFvNbx2m6pWqprFseW70',
+			'Bearer BQCc4MxumXrEZBLooOlmAZhizxNXWxPyjOCFIpKvdUcdPZVC10Bf-8W8MpJxX3TaR_ZqN9EZkvt8smgqCcr_LeUi8Ei9OYc4gJcrAnel9X1td_MZmY_vI1WZXQ9tpvaLbcqpdNQm4Im1Odo2uxHxhn40xQbLMHVuwZlQFZnUXvAw39cae3juFcjfxcJsBFVHXt-I',
 	},
 	responseType: 'json',
 };
@@ -19,8 +27,7 @@ export const useGetArtistTracks = async (id) => {
 };
 
 export const useGetArtists = async () => {
-	let ids =
-		'6eUKZXaKkcviH0Ku9w2n3V%2C6VuMaDnrHyPL1p4EHjYLi7%2C1vCWHaC5f2uS3yhpwWbIA6';
+	let ids = artists.join('%2C');
 	let res = await axios.get(`${baseURL}/artists?ids=${ids}`, config);
 	let stringData = JSON.stringify(res.data.artists);
 	return stringData;
@@ -52,5 +59,12 @@ export const useGetArtistTopTracks = async (id) => {
 		config
 	);
 	let stringData = JSON.stringify(res.data.tracks);
+	return stringData;
+};
+
+export const useGetTrackLyrics = async (id) => {
+	let res = await axios.get(`${lyricsURL}/?id=${id}`, lyricsConfig);
+	console.log(res?.data?.lyrics?.lines);
+	let stringData = JSON.stringify(res?.data?.lyrics?.lines);
 	return stringData;
 };

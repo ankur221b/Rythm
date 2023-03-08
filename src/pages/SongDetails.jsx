@@ -8,6 +8,7 @@ import {
 	useGetSongDetails,
 	useGetArtistTopTracks,
 	useGetArtistDetails,
+	useGetTrackLyrics,
 } from '../redux/services/shazamCore';
 
 const SongDetails = () => {
@@ -17,12 +18,18 @@ const SongDetails = () => {
 	const [songData, setSongData] = useState(null);
 	const [topTracks, setTopTracks] = useState(null);
 	const [artistData, setArtistData] = useState(null);
+	const [trackLyrics, setTrackLyrics] = useState(null);
 	useEffect(() => {
 		const getData = async () => {
 			const tmpdata = await useGetSongDetails(songid);
 			setSongData(JSON.parse(tmpdata));
 		};
+		const getLyrics = async () => {
+			const lyricsdata = await useGetTrackLyrics(songid);
+			setTrackLyrics(JSON.parse(lyricsdata));
+		};
 		getData();
+		getLyrics();
 	}, []);
 	useEffect(() => {
 		const getData = async (id) => {
@@ -67,13 +74,13 @@ const SongDetails = () => {
 				<h2 className="text-white text-3xl font-bold">Lyrics:</h2>
 
 				<div className="mt-5">
-					{songData === 'LYRICS' ? (
-						songData?.sections[1]?.text.map((line, i) => (
+					{trackLyrics != null ? (
+						trackLyrics.map((line, i) => (
 							<p
-								key={`lyrics-${line}-${i}`}
+								key={`lyrics-${line.words}-${i}`}
 								className="text-gray-400 text-base my-1"
 							>
-								{line}
+								{line.words}
 							</p>
 						))
 					) : (
