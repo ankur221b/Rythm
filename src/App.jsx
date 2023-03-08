@@ -24,22 +24,34 @@ const App = () => {
 				<div className="px-6 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse">
 					<div className="flex-1 h-fit pb-40">
 						<Routes>
-							<Route path="/" element={<Discover />} />
+							<Route exact path="/" element={<Discover />} />
 							<Route
+								exact
 								path="/top-artists"
 								element={<TopArtists />}
 							/>
-							<Route path="/top-charts" element={<TopCharts />} />
-							<Route path="/around-you" element={<AroundYou />} />
 							<Route
+								exact
+								path="/top-charts"
+								element={<TopCharts />}
+							/>
+							<Route
+								exact
+								path="/around-you"
+								element={<AroundYou />}
+							/>
+							<Route
+								exact
 								path="/artists/:id"
 								element={<ArtistDetails />}
 							/>
 							<Route
+								exact
 								path="/songs/:songid"
 								element={<SongDetails />}
 							/>
 							<Route
+								exact
 								path="/search/:searchTerm"
 								element={<Search />}
 							/>

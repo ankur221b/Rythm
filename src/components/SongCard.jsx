@@ -53,7 +53,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
 								: '/top-artists'
 						}
 					>
-						{song.subtitle}
+						{song?.artists[0]?.name}
 					</Link>
 				</p>
 			</div>
