@@ -78,7 +78,7 @@ export const useGetTrackLyrics = async (id) => {
 
 export const GetTopCharts = async () => {
 	let res = await axios.get(
-		`http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
+		`https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
 	);
 	let topTracks = res?.data?.tracks?.track;
 	let tracksFromSpotify = [];
@@ -92,7 +92,7 @@ export const GetTopCharts = async () => {
 
 export const GetTopArtists = async () => {
 	let res = await axios.get(
-		`http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
+		`https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
 	);
 	let topArtists = res?.data?.artists?.artist;
 	let artistsFromSpotify = [];
