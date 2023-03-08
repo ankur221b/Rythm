@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Error, Loader, SongCard } from '../components';
-import { useGetArtistTracks } from '../redux/services/shazamCore';
+import { useGetArtistTracks, GetTopCharts } from '../redux/services/shazamCore';
 
 const TopCharts = () => {
 	const [data, setData] = useState(null);
@@ -9,15 +9,17 @@ const TopCharts = () => {
 
 	useEffect(() => {
 		const getData = async () => {
-			const tmpdata = await useGetArtistTracks('6VuMaDnrHyPL1p4EHjYLi7');
+			//const tmpdata = await useGetArtistTracks('6VuMaDnrHyPL1p4EHjYLi7');
+			const tmpdata = await GetTopCharts();
+
 			setData(JSON.parse(tmpdata));
 		};
 		getData();
 	}, []);
 
-	//   if (isFetching) return <Loader title="Loading Top Charts" />;
+	if (!data) return <Loader title="Loading Top Charts" />;
 
-	//   if (error) return <Error />;
+	//if (error) return <Error />;
 	return (
 		<div className="flex flex-col">
 			<h2 className="font-bold text-3xl text-white text-left mt-4 mb-10">

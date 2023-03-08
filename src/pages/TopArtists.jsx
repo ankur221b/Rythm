@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
 import { ArtistCard, Error, Loader } from '../components';
-import { useGetArtists } from '../redux/services/shazamCore';
+import { useGetArtists, GetTopArtists } from '../redux/services/shazamCore';
 
 const TopArtists = () => {
 	const [data, setData] = useState(null);
 	useEffect(() => {
 		const getData = async () => {
-			const tmpdata = await useGetArtists();
+			// const tmpdata = await useGetArtists();
+			const tmpdata = await GetTopArtists();
 			setData(JSON.parse(tmpdata));
 		};
 		getData();
 	}, []);
-	// if (isFetching) return <Loader title="Loading artists..." />;
+	if (!data) return <Loader title="Loading artists..." />;
 
 	// if (error) return <Error />;
 

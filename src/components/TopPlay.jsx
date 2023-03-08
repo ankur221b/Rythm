@@ -7,7 +7,7 @@ import { FreeMode } from 'swiper';
 
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
-import { useGetArtistTracks } from '../redux/services/shazamCore';
+import { useGetArtistTracks, GetTopCharts } from '../redux/services/shazamCore';
 
 import 'swiper/swiper.min.css';
 import 'swiper/modules/free-mode/free-mode';
@@ -65,7 +65,8 @@ const TopPlay = () => {
 	useEffect(() => {
 		divRef.current.scrollIntoView({ behavior: 'smooth' });
 		const getData = async () => {
-			const tmpdata = await useGetArtistTracks('6VuMaDnrHyPL1p4EHjYLi7');
+			// const tmpdata = await useGetArtistTracks('6VuMaDnrHyPL1p4EHjYLi7');
+			const tmpdata = await GetTopCharts();
 			setData(JSON.parse(tmpdata));
 		};
 		getData();

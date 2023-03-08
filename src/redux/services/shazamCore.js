@@ -13,7 +13,7 @@ const lyricsConfig = {
 const config = {
 	headers: {
 		Authorization:
-			'Bearer BQDeOtRTFGoGyI1CXOVYiD2iIwP3X2ofrcGeMASj9SViZ6nbbAA0Bk53_yM-sv5wQPq7OfhsEjRpEbo2ReL4kipS91w8_HWL12suNlILEl_Jagt9uJ5XdFSpPzJO0pgylLrftn1l4nhVejWOhKwuOrCBY5tSy3JmLNhshnILyJZijGBoEW-nzkYgYxolPk7TbzP2',
+			'Bearer BQBhV_WVW8Rm3bJYPftwppKlEJJGXs3J--7KY9st6qrHsQd1IO-06UhRgJG5z5_2Pkb3hfujc5JdjINDRh8lBWJBTu2v-BnbhlCLbKe_hIcAPmdcbG2SbtcSpq_Sox7R5idmtH3OpnuuQ1q3wuE123bMUtt_2NDel-eGGcpNBhYlccOIzxC12taD8I2LYKXNpBIf',
 	},
 	responseType: 'json',
 };
@@ -53,6 +53,14 @@ export const useSearchSong = async (searchTerm) => {
 	let stringData = JSON.stringify(res.data.tracks);
 	return stringData;
 };
+export const useSearchArtist = async (searchTerm) => {
+	let res = await axios.get(
+		`${baseURL}/search?q=${searchTerm}&type=artist&limit=1`,
+		config
+	);
+	let topArtists = res?.data?.artists;
+	return JSON.stringify(topArtists);
+};
 export const useGetArtistTopTracks = async (id) => {
 	let res = await axios.get(
 		`${baseURL}/artists/${id}/top-tracks?market=US`,
@@ -64,7 +72,33 @@ export const useGetArtistTopTracks = async (id) => {
 
 export const useGetTrackLyrics = async (id) => {
 	let res = await axios.get(`${lyricsURL}/?id=${id}`, lyricsConfig);
-	console.log(res?.data?.lyrics?.lines);
 	let stringData = JSON.stringify(res?.data?.lyrics?.lines);
 	return stringData;
+};
+
+export const GetTopCharts = async () => {
+	let res = await axios.get(
+		`http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
+	);
+	let topTracks = res?.data?.tracks?.track;
+	let tracksFromSpotify = [];
+	for (let i = 0; i < topTracks.length; i++) {
+		let response = JSON.parse(await useSearchSong(topTracks[i]?.name));
+		tracksFromSpotify.push(response?.items[0]);
+	}
+
+	return JSON.stringify(tracksFromSpotify);
+};
+
+export const GetTopArtists = async () => {
+	let res = await axios.get(
+		`http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
+	);
+	let topArtists = res?.data?.artists?.artist;
+	let artistsFromSpotify = [];
+	for (let i = 0; i < topArtists.length; i++) {
+		let response = JSON.parse(await useSearchArtist(topArtists[i]?.name));
+		artistsFromSpotify.push(response?.items[0]);
+	}
+	return JSON.stringify(artistsFromSpotify);
 };

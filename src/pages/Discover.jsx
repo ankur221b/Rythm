@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Error, Loader, SongCard } from '../components';
 import { genres } from '../assets/constants';
-import { useGetArtistTracks } from '../redux/services/shazamCore';
+import { useGetArtistTracks, GetTopCharts } from '../redux/services/shazamCore';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGenreListId } from '../redux/features/playerSlice';
 import { genres } from '../assets/constants';
