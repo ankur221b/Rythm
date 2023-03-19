@@ -41,3 +41,33 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.spotify-text{
+  width: 100%;
+  margin: 0px auto;
+  max-width: 1400px;
+  padding: 80px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.spotify-text>h1{
+  font-size: 32px;;
+}
+.spotify-button{
+  display: inline-block;
+  background-color: rgb(29, 185, 84);
+  color: rgb(255, 255, 255);
+  border-radius: 30px;
+  padding: 17px 35px;
+  margin: 20px 0px 70px;
+  min-width: 160px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+}
