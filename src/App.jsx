@@ -13,6 +13,7 @@ import {
 	TopCharts,
 } from './pages';
 
+
 const App = () => {
 	const { activeSong } = useSelector((state) => state.player);
 	const [searchParams] = useSearchParams();
