@@ -20,7 +20,7 @@ const Discover = () => {
 		getData();
 	}, []);
 
-	// if (isFetching) return <Loader title="Loading songs..." />;
+	if (!data) return <Loader title="Loading songs..." />;
 	// if (error) return <Error />;
 	//const genreTitle = 'Pop';
 	const genreTitle = genres.find(({ value }) => value === genreListId)?.title;
