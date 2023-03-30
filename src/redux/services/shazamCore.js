@@ -10,14 +10,23 @@ const lyricsConfig = {
 		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
 	},
 };
-const config = {
+const accessTokenConfig = {
 	headers: {
-		Authorization:
-			'Bearer BQBhV_WVW8Rm3bJYPftwppKlEJJGXs3J--7KY9st6qrHsQd1IO-06UhRgJG5z5_2Pkb3hfujc5JdjINDRh8lBWJBTu2v-BnbhlCLbKe_hIcAPmdcbG2SbtcSpq_Sox7R5idmtH3OpnuuQ1q3wuE123bMUtt_2NDel-eGGcpNBhYlccOIzxC12taD8I2LYKXNpBIf',
-	},
+		"Content-Type": "application/x-www-form-urlencoded"
+	  },
 	responseType: 'json',
 };
+// const config = {
+// 	headers: {
+// 		Authorization:
+// 			'Bearer BQD6trNkmTArvAPFC8CXkzm84WeORelRMFxtVP8hrSoMNKSJeHfYYTdAQjljqF5VmosCdJndr9V3vuAThu0FOwTK6XU9y4bs_5xFewmdoD-wz_vszntb',
+// 	},
+// 	responseType: 'json',
+// };
+let config = null;
+
 export const useGetArtistTracks = async (id) => {
+	
 	let res = await axios.get(
 		`${baseURL}/artists/${id}/top-tracks?market=ES`,
 		config
@@ -27,6 +36,7 @@ export const useGetArtistTracks = async (id) => {
 };
 
 export const useGetArtists = async () => {
+
 	let ids = artists.join('%2C');
 	let res = await axios.get(`${baseURL}/artists?ids=${ids}`, config);
 	let stringData = JSON.stringify(res.data.artists);
@@ -34,18 +44,21 @@ export const useGetArtists = async () => {
 };
 
 export const useGetSongDetails = async (id) => {
+
 	let res = await axios.get(`${baseURL}/tracks/${id}`, config);
 	let stringData = JSON.stringify(res.data);
 	return stringData;
 };
 
 export const useGetArtistDetails = async (id) => {
+
 	let res = await axios.get(`${baseURL}/artists/${id}`, config);
 	let stringData = JSON.stringify(res.data);
 	return stringData;
 };
 
 export const useSearchSong = async (searchTerm) => {
+	
 	let res = await axios.get(
 		`${baseURL}/search?q=${searchTerm}&type=track`,
 		config
@@ -54,6 +67,7 @@ export const useSearchSong = async (searchTerm) => {
 	return stringData;
 };
 export const useSearchArtist = async (searchTerm) => {
+
 	let res = await axios.get(
 		`${baseURL}/search?q=${searchTerm}&type=artist&limit=1`,
 		config
@@ -62,6 +76,7 @@ export const useSearchArtist = async (searchTerm) => {
 	return JSON.stringify(topArtists);
 };
 export const useGetArtistTopTracks = async (id) => {
+	
 	let res = await axios.get(
 		`${baseURL}/artists/${id}/top-tracks?market=US`,
 		config
@@ -71,12 +86,14 @@ export const useGetArtistTopTracks = async (id) => {
 };
 
 export const useGetTrackLyrics = async (id) => {
+
 	let res = await axios.get(`${lyricsURL}/?id=${id}`, lyricsConfig);
 	let stringData = JSON.stringify(res?.data?.lyrics?.lines);
 	return stringData;
 };
 
 export const GetTopCharts = async () => {
+	
 	let res = await axios.get(
 		`https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
 	);
@@ -91,6 +108,7 @@ export const GetTopCharts = async () => {
 };
 
 export const GetTopArtists = async () => {
+	
 	let res = await axios.get(
 		`https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=271570119d140a47007a7df22e389e52&format=json&limit=20`
 	);
@@ -101,4 +119,22 @@ export const GetTopArtists = async () => {
 		artistsFromSpotify.push(response?.items[0]);
 	}
 	return JSON.stringify(artistsFromSpotify);
+};
+
+export const useGetAccessToken = async () => {
+	let res = await axios.post(`https://accounts.spotify.com/api/token`,new URLSearchParams({
+		'grant_type': 'client_credentials',
+		'client_id': process.env.REACT_APP_CLIENT_ID,
+		'client_secret': process.env.REACT_APP_CLIENT_SECRET
+	  }));
+	let token = res?.data?.access_token;
+	config = {
+		headers: {
+			Authorization:
+				'Bearer '+token,
+		},
+		responseType: 'json',
+	};
+
+	return token;
 };

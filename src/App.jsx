@@ -1,3 +1,4 @@
+import { useEffect,useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
@@ -11,10 +12,21 @@ import {
 	SongDetails,
 	TopCharts,
 } from './pages';
+import { useGetAccessToken } from './redux/services/shazamCore';
 
 const App = () => {
 	const { activeSong } = useSelector((state) => state.player);
+	const [accessToken,setAccessToken] = useState("");
+	useEffect(()=>{
+		
+		const getAccessToken = async()=>{
+			let token = await useGetAccessToken();
+			setAccessToken(token);
+		}
+		getAccessToken();
+	},[])
 
+	if(accessToken){
 	return (
 		<div className="relative flex">
 			<Sidebar />
@@ -70,6 +82,7 @@ const App = () => {
 			)}
 		</div>
 	);
+			}
 };
 
 export default App;
