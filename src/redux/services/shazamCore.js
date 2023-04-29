@@ -16,13 +16,7 @@ const accessTokenConfig = {
 	  },
 	responseType: 'json',
 };
-// const config = {
-// 	headers: {
-// 		Authorization:
-// 			'Bearer BQD6trNkmTArvAPFC8CXkzm84WeORelRMFxtVP8hrSoMNKSJeHfYYTdAQjljqF5VmosCdJndr9V3vuAThu0FOwTK6XU9y4bs_5xFewmdoD-wz_vszntb',
-// 	},
-// 	responseType: 'json',
-// };
+
 let config = null;
 
 export const useGetArtistTracks = async (id) => {
